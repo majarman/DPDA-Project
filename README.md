@@ -1,6 +1,6 @@
 # CSC 450 Programming Assignment
 
-You are to implement a simulator for a [deterministic push-down automata](https://learning.oreilly.com/library/view/an-introduction-to/9781284077254/ch07.html#ch7def3)(dpda), as defined in Section 7.3 of the textbook.
+You are to implement a simulator for a [deterministic push-down automata](https://learning.oreilly.com/library/view/an-introduction-to/9781284077254/ch07.html#ch7def3) (dpda), as defined in Section 7.3 of the textbook.
 
 
 
@@ -15,6 +15,7 @@ For non-&lambda; transitions there will be five items on a line: the current sta
 The five items should be separated by white space (i.e., blanks or tabs).
 A &lambda; transition is specified by starting the line with a capital 'L'
 followed by the current state, the top symbol on the stack, the new state number, and the string of stack symbols to push.
+* The program should allow the user to specify which directory the .conf files are in.
 * The input to the dpda will be entered on standard input.
 * The program will print to standard output an instantaneous description of the machine before each move. When no more moves are possible the program will print "Accept" or "Reject" to the standard output.
 
@@ -25,7 +26,9 @@ followed by the current state, the top symbol on the stack, the new state number
 * If you are using Java, I recommend using the `Scanner` class for processing input.
 * The program should build a transition table and then simulate what a pda would do on the input, keeping track of the current state and the current stack contents, and reading one character at a time from standard input. It will look up in the transition table what the next state should be and the next thing to push onto the stack.
 When there are no more input characters, it will see whether the machine is in a final state and print a corresponding message.
-* Sample .conf files are given for the deterministic pda of Example 7.10 in the folder named Example7-10-conf.
+*  I leave it to you to decide how the program should let the user specify the directory/folder that holds the configuration files.  For example, if the program has a GUI, then you could use a text box to receive the name of the directory, or you could be a bit fancier and use a file chooser.  If the program is executed from the command line, then you could either have the program prompt for the directory, or&mdash;better yet&mdash;you could allow the directory to be specified as the program's only command-line argument.
+* Sample configuration files are given for the deterministic pda of Example 7.10 in the folder named Example7-10-conf.
+* Sample test inputs are given in the same folder.
 
 ## Grading
 
@@ -33,8 +36,14 @@ Your score will be based on the following rubric:
 
 | Item | Possible score |
 |------|---------------:|
-| Blah| 2 |
-| Total | 25|
+| Program is well-designed and documented | 10 |
+| Program allows user to specify the directory that the configuration files are in | 10 |
+| Program prints sequence of instantaneous descriptions for the given input | 10 |
+| Program prints the correct message (Accept/Reject) for the given input | 10 |
+| At least two separate test machine configurations are provided&mdash;**not** including the one already provided from Example 7.10 | 10 |
+| At least 5 separate test inputs for each of the machine configurations are provided | 20 |
+| Program executes correctly on all test inputs&mdash;including the one already provided. | 30 |
+| Total | 100 |
 
 Programming Assignment 3 is due Wednesday, April 17, at class time.
 You will turn the assignment in by pushing your branch to GitHub. **Note Well:** this will not be possible until class time of the day that it's due, and it will *only* be possible to do this during class that day.
