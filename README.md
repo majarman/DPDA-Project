@@ -6,10 +6,11 @@ You are to implement a simulator for a [deterministic push-down accepter/automat
 
 ## Specifications
 
-* Elements of the set Q will be indexed by consecutive nonnegative integers starting at 0, and is specified by placing the highest such index in a file named Q.conf.  The initial state will always be the one with index 0.
+* Elements of the set Q will be indexed by consecutive nonnegative integers starting at 0, and is specified by placing the highest such index in a file named Q.conf.  
+* The initial state will always be the one with index 0.
 * The set F will be represented by a comma-separated list of element indexes of Q in a file named F.conf
 * Elements of the sets &Sigma; and &Gamma; can be any __printable__ Unicode character, excluding things such as newlines, blanks, tabs and spaces.  The sets themselves will be specified by listing the characters desired in files named Sigma.conf and Gamma.conf respectively.
-The __first__ symbol listed in Gamma.conf will be the initial contents of the stack.
+* The __first__ symbol listed in Gamma.conf will be the initial contents of the stack.
 * The transition function &delta; will be specified in a file named delta.conf.
 Each line of delta.conf will represent one transition.
 For non-&lambda; transitions there will be five items on a line: the current state number, the next character on input, the top symbol on the stack, the new state number, and a string of stack symbols to push, terminating with the end of the line.
