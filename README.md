@@ -27,6 +27,7 @@ followed by the current state, the top symbol on the stack, the new state number
 * The program should build a transition table and then simulate what a pda would do on the input, keeping track of the current state and the current stack contents, and reading one character at a time from standard input. It will look up in the transition table what the next state should be and the next thing to push onto the stack.
 When there are no more input characters, it will see whether the machine is in a final state and print a corresponding message.
 *  I leave it to you to decide how the program should let the user specify the directory/folder that holds the configuration files.  For example, if the program has a GUI, then you could use a text box to receive the name of the directory, or you could be a bit fancier and use a file chooser.  If the program is executed from the command line, then you could either have the program prompt for the directory, or&mdash;better yet&mdash;you could allow the directory to be specified as the program's only command-line argument.
+* The program should make sure that the specification meets the requirements of a dpda and that the given input string is appropriate for the specified dpda.
 * Sample configuration files are given for the deterministic pda of Example 7.10 in the folder named Example7-10-conf.
 * Sample test inputs are given in the same folder.
 
@@ -38,11 +39,12 @@ Your score will be based on the following rubric:
 |------|---------------:|
 | Program is well-designed and documented | 10 |
 | Program allows user to specify the directory that the configuration files are in | 10 |
+| Program checks for inconsistencies in the configuration/input string | 10 |
 | Program prints sequence of instantaneous descriptions for the given input | 10 |
 | Program prints the correct message (Accept/Reject) for the given input | 10 |
 | At least two separate test machine configurations are provided&mdash;**not** including the one already provided from Example 7.10 | 10 |
 | At least 5 separate test inputs for each of the machine configurations are provided | 20 |
-| Program executes correctly on all test inputs&mdash;including the one already provided. | 30 |
+| Program executes correctly on all test inputs&mdash;including the one already provided | 20 |
 | Total | 100 |
 
 Programming Assignment 3 is due Wednesday, April 17, at class time.
