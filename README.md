@@ -1,6 +1,7 @@
 # CSC 450 Programming Assignment
 
 You are to implement a simulator for a [deterministic push-down automata](https://learning.oreilly.com/library/view/an-introduction-to/9781284077254/ch07.html#ch7def3)
+Clone this GitHub repository, create a branch within named with your Mount Union login name, and then when you are ready to turn the project in you will be given permission so that you can push your branch to the repository.
 
 
 ## Specifications
