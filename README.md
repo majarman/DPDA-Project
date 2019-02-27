@@ -34,5 +34,5 @@ Your score will be based on the following rubric:
 | Blah| 2 |
 | Total | 25|
 
-Programming Assignment 3 is due Friday, March 22, at class time.
+Programming Assignment 3 is due Wednesday, April 17, at class time.
 You will turn the assignment in by pushing your branch to GitHub. **Note Well:** this will not be possible until class time of the day that it's due, and it will *only* be possible to do this during class that day.
