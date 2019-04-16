@@ -1,9 +1,11 @@
+import os
+
 setQ=[]
 setF=[]
 setSigma=[]
 setGamma=[]
-theStack=[]
 setDelta=[]
+theStack=[]
 normalDeltaTable=[]
 lambdaDeltaTable=[]
 inputString=""
@@ -13,20 +15,16 @@ noTransitionError=False
 INITIALSTATE=0
 currentState=INITIALSTATE
 
-QVAL=2
-F="0"
-SIGMA="ab"
-GAMMA="01"
-DELTA="""0 a 0 1 10
-1 a 1 1 11
-1 b 1 2
-2 b 1 2
-L 2 0 0"""
+QVAL=""
+F=""
+SIGMA=""
+GAMMA=""
+DELTA=""
 
 #__ToSet:
 #individual functions for populating setQ, setF, setSigma, setGamma
 def qToSet():
-	for i in range(QVAL):
+	for i in range(int(QVAL)+1):
 		setQ.append(i)
 
 def fToSet():
@@ -154,15 +152,21 @@ def getNextMove(state):
 	print("no transition found!\n")
 	noTransitionError=True
 
-#main function gets passed a string and determines if the string is in the language
+#the machine. This gets passed a string and determines if the string is in the language
 def isStringInLanguage(string):
+	#initializing variables here
 	machineStatus=[]
 	nextMove=[]
+	global INITIALSTATE
 	global currentState
+	currentState=INITIALSTATE
 	global theStack
+	theStack=[]
+	theStack.append(setGamma[0])
 	global noTransitionError
 	noTransitionError=False
 	i=0
+	
 	#main loop
 	while (i < len(string)):
 		print("\nSTEP: "+str(i))
@@ -254,8 +258,130 @@ def isStringInLanguage(string):
 		print("\nString accepted!")
 		return
 
-setQFSG()
-setDelta=DELTA.splitlines()
-createTransitions(setDelta)
+#validation method for the machine
+#returns 1 if machine is a DPDA, 0 if not
+def validate():
+	#checks normalDeltaTable for states or symbols not in the defined sets Q, F, Sigma, and Gamma
+	for i in range(len(normalDeltaTable)):
+		if(normalDeltaTable[i][0] not in setQ):
+			print("Error: normalDeltaTable contains invalid state")
+			return 0
+		if(normalDeltaTable[i][1] not in setSigma):
+			print("Error: normalDeltaTable contains invalid alphabet symbol")
+			return 0
+		if(normalDeltaTable[i][2] not in setGamma):
+			print("Error: normalDeltaTable contains invalid stack symbol")
+			return 0
+		if(normalDeltaTable[i][3] not in setQ):
+			print("Error: normalDeltaTable contains invalid state")
+			return 0
+		if(normalDeltaTable[i][4] != ''):
+			for x in range(len(normalDeltaTable[i][4])):
+				if(normalDeltaTable[i][4][x] not in setGamma):
+					print("Error: normalDeltaTable contains invalid stack symbol")
+					return 0
+	#checks lambdaDeltaTable for states or symbols not in the defined sets Q, F, Sigma, and Gamma
+	for i in range(len(lambdaDeltaTable)):
+		if(lambdaDeltaTable[i][1] not in setQ):
+			print("Error: lambdaDeltaTable contains invalid state")
+			return 0
+		if(lambdaDeltaTable[i][2] not in setGamma):
+			print("Error: lambdaDeltaTable contains invalid stack symbol")
+			return 0
+		if(lambdaDeltaTable[i][3] not in setQ):
+			print("Error: lambdaDeltaTable contains invalid state")
+			return 0
+		if((lambdaDeltaTable[i][4] != '') and (lambdaDeltaTable[i][4] not in setGamma)):
+			print("Error: lambdaDeltaTable contains invalid stack symbol")
+			return 0
+	#checks setF for states not in set Q
+	for i in range(len(setF)):
+		if(setF[i] not in setQ):
+			print("Error: setF contains invalid state not found in setQ")
+			return 0
+	return 1
+	
+#main method that runs the program
+def main():
+	global QVAL
+	global F
+	global SIGMA
+	global GAMMA
+	global DELTA
+	goAgain=True
+	
+	#initializes PATH for files
+	PATH=os.path.dirname(os.path.abspath("main.py"))
+	print(PATH)
+	s=input("Use current directory? (enter 'yes' or 'no')\n")
+	if(s=='no'):
+		PATH=input("Specify path: ")
+	#opens files
+	try:
+		qFile=open((PATH+"\Q.conf"), "r")
+		fFile=open((PATH+"\F.conf"), "r")
+		sFile=open((PATH+"\Sigma.conf"), "r")
+		gFile=open((PATH+"\Gamma.conf"), "r")
+		dFile=open((PATH+"\delta.conf"), "r")
+	except:
+		print("Problem opening file.")
+	
+	#takes in complete files as strings and assigns those strings to the main variables
+	QVAL=qFile.read()
+	F=fFile.read()
+	SIGMA=sFile.read()
+	GAMMA=gFile.read()
+	DELTA=dFile.read()
+	
+	#configures the machine by calling methods that create the list objects
+	try:
+		setQFSG()
+		setDelta=DELTA.splitlines()
+		createTransitions(setDelta)
+	except:
+		print("Error configuring machine. Check formatting guidelines in the README")
+		return
+	
+	print("Machine configured. Validating...")
+	
+	#validates the machine
+	if(validate()==1):
+		print("Machine passes validation.")
+	elif(validate()==0):
+		print("Machine does not pass validation. See error above.")
+		return -1
+	
+	print("Machine initialized.")
+	
+	print("q: ")
+	print(setQ)
+	print("F: ")
+	print(setF)
+	print("Sigma: ")
+	print(setSigma)
+	print("Gamma: ")
+	print(setGamma)
+	print("Delta: ")
+	print(setDelta)
+	print("\n")
+	
+	#main machine loop
+	while(goAgain):
+		s=input("Enter string: ")
+		#checks if string contains invalid symbols not in setSigma
+		validString=True
+		for i in range(len(s)):
+			if(s[i] not in setSigma):
+				print("Error: string invalid (contains symbols not in setSigma)")
+				validString=False
+				break
+		if(validString):
+			isStringInLanguage(s)
+		
+		s=input("Enter another string? (enter 'yes' or 'no')\n")
+		if(s=="yes"):
+			goAgain=True
+		elif(s=="no"):
+			goAgain=False
 
-isStringInLanguage("aaaabbbb")
+main()
