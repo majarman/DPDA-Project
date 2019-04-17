@@ -183,8 +183,9 @@ def isStringInLanguage(string):
 			print("New State: ")
 			print(currentState)
 			theStack.pop()
-			theStack.append(nextMove[1][1])
-			theStack.append(nextMove[1][0])
+			print(len(nextMove[1]))
+			for x in range(len(nextMove[1])):
+				theStack.append(nextMove[1][(len(nextMove[1])-x-1)])
 			print("Stack after push: ")
 			print(theStack)
 		#if just pop and no push
