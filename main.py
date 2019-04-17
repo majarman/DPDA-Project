@@ -282,6 +282,8 @@ def validate():
 					print("Error: normalDeltaTable contains invalid stack symbol")
 					return 0
 	#checks lambdaDeltaTable for states or symbols not in the defined sets Q, F, Sigma, and Gamma
+	print(lambdaDeltaTable)
+	print(setGamma)
 	for i in range(len(lambdaDeltaTable)):
 		if(lambdaDeltaTable[i][1] not in setQ):
 			print("Error: lambdaDeltaTable contains invalid state")
