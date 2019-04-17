@@ -294,9 +294,12 @@ def validate():
 		if(lambdaDeltaTable[i][3] not in setQ):
 			print("Error: lambdaDeltaTable contains invalid state")
 			return 0
-		if((lambdaDeltaTable[i][4] != '') and (lambdaDeltaTable[i][4] not in setGamma)):
-			print("Error: lambdaDeltaTable contains invalid stack symbol")
-			return 0
+		if(lambdaDeltaTable[i][4] != ''):
+			for x in range(len(lambdaDeltaTable[i][4])):
+				if(lambdaDeltaTable[i][4][x] not in setGamma):
+					print("Error: lambdaDeltaTable contains invalid stack symbolz")
+					print(lambdaDeltaTable[i][4])
+					return 0
 	#checks setF for states not in set Q
 	for i in range(len(setF)):
 		if(setF[i] not in setQ):
